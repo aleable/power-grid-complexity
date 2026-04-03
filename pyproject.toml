@@ -1,0 +1,28 @@
+[project]
+name = "power-grid-sa-uk"
+version = "1.0.0"
+description = ""
+authors = [
+    {name = "Alessandro Lonardi",email = "alessandro.lonardi.vr@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy (>=2.3.5,<3.0.0)",
+    "matplotlib (>=3.10.7,<4.0.0)",
+    "scipy (>=1.16.3,<2.0.0)",
+    "numdifftools (>=0.9.41,<0.10.0)",
+    "pandas (>=2.3.3,<3.0.0)",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.12.0"
+isort = "^7.0.0"
+pytest = "^9.0.2"
+nbqa = "^1.9.1"
+

@@ -1,0 +1,8 @@
+__pycache__
+.pytest_cache
+.venv
+poetry.lock
+
+data/frequency_london.csv
+data/phase_angle_bloemfontein.csv
+data/phase_angle_stellenbosch.csv
