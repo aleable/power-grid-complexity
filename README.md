@@ -2,7 +2,7 @@
 Code for: Understanding the complexity of frequency and phase angle fluctuations in power grids
 </h1>
 
-This repository contains the implementation of the Maximum Likelihood Estimation (MLE) and Least Squares (LS) routines, and links to open-source data deposited in Zenodo.
+This repository contains the implementation of the Maximum Likelihood Estimation (MLE) and Least Squares (LS) routines, and links to open-source data deposited in <a href="https://zenodo.org/records/19397526" target="_blank">a Zenodo folder</a>.
 
 <b>Understanding the complexity of frequency and phase angle fluctuations in power grids</b><br/>
 Alessandro Lonardi, Jacques M. Maritz, Leonardo Rydin Gorjão, and Christian Beck<br/>
@@ -67,7 +67,7 @@ We open-source measurements recorded from our PMUs over the month of August 2025
 * Phase angle measurements recorded in Stellenbosch
 * Phase angle measurements recorded in Bloemfontein
 
-**Important:** Due to their large size, the files are not directly uploaded on GitHub. You can find them deposited in a <a href="TODO" target="_blank">Zenodo folder</a>.
+**Important:** Due to their large size, the files are not directly uploaded on GitHub. You can find them deposited in <a href="https://zenodo.org/records/19397526" target="_blank">a Zenodo folder</a>.
 
 Once you dowload the data, add them to the [`data`](./data/) folder as:
 * data/frequency_london.csv
