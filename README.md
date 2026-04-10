@@ -6,6 +6,7 @@ This repository contains the implementation of the Maximum Likelihood Estimation
 
 <b>Understanding the complexity of frequency and phase angle fluctuations in power grids</b><br/>
 Alessandro Lonardi, Jacques M. Maritz, Leonardo Rydin Gorjão, and Christian Beck<br/>
+[<a href="https://arxiv.org/abs/2604.03133" target="_blank">arXiv</a>]<br/>
 
 The code is made available for the public, if you make use of it please cite our work in the form of the reference above.
 
