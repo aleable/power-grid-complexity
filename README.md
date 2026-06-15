@@ -70,7 +70,7 @@ We open-source measurements recorded from our PMUs over the month of August 2025
 
 **Important:** Due to their large size, the files are not directly uploaded on GitHub. You can find them deposited in <a href="https://zenodo.org/records/19397526" target="_blank">a Zenodo folder</a>.
 
-Once you dowload the data, add them to the [`data`](./data/) folder as:
+Once you download the data, add them to the [`data`](./data/) folder as:
 * data/frequency_london.csv
 * data/phase_angle_stellenbosch.csv
 * data/phase_angle_bloemfontein.csv
