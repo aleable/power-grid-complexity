@@ -348,3 +348,57 @@ class QGaussianTail:
             Union[float, npt.NDArray[np.float64]],
             pdf_vals if x_arr.shape != () else pdf_vals.item(),
         )
+
+class GaussianCoreModel:
+    """
+    Gaussian-core distribution
+
+        V(x) = x^2 / (2 sigma^2) + A exp(-(x / omega_zero)^2)
+        p(x) = exp(-V(x))
+
+    Args:
+        * sigma Gaussian tail width
+        * A barrier height
+    """
+
+    def __init__(self, sigma: float, A: float):
+        self.sigma = sigma
+        self.A = A
+        self.omega_zero = 2 * np.pi * 0.015
+
+    def _negative_V(
+        self, x: npt.NDArray[np.float64]
+    ) -> npt.NDArray[np.float64]:
+        """
+        -V(x)
+        """
+        return (
+            -0.5 * (x / self.sigma) ** 2
+            - self.A * np.exp(-(x / self.omega_zero) ** 2)
+        )
+
+    def pdf(
+        self,
+        x: Union[float, npt.NDArray[np.float64]],
+        x_grid: npt.NDArray[np.float64],
+    ) -> Union[float, npt.NDArray[np.float64]]:
+        """
+        Normalized PDF using numerical quadrature on x_grid
+        """
+
+        x_arr = np.atleast_1d(np.asarray(x, dtype=float))
+
+        # log unnormalized density
+        log_unnorm = self._negative_V(x_arr)
+
+        # normalization
+        dx = x_grid[1] - x_grid[0]
+        log_Z = logsumexp(self._negative_V(x_grid)) + np.log(dx)
+
+        log_pdf = log_unnorm - log_Z
+        p = np.exp(log_pdf)
+
+        return cast(
+            Union[float, npt.NDArray[np.float64]],
+            p if x_arr.shape != () else p.item(),
+        )
