@@ -349,6 +349,7 @@ class QGaussianTail:
             pdf_vals if x_arr.shape != () else pdf_vals.item(),
         )
 
+
 class GaussianCoreModel:
     """
     Gaussian-core distribution
@@ -366,15 +367,12 @@ class GaussianCoreModel:
         self.A = A
         self.omega_zero = 2 * np.pi * 0.015
 
-    def _negative_V(
-        self, x: npt.NDArray[np.float64]
-    ) -> npt.NDArray[np.float64]:
+    def _negative_V(self, x: npt.NDArray[np.float64]) -> npt.NDArray[np.float64]:
         """
         -V(x)
         """
-        return (
-            -0.5 * (x / self.sigma) ** 2
-            - self.A * np.exp(-(x / self.omega_zero) ** 2)
+        return -0.5 * (x / self.sigma) ** 2 - self.A * np.exp(
+            -((x / self.omega_zero) ** 2)
         )
 
     def pdf(
@@ -397,6 +395,59 @@ class GaussianCoreModel:
 
         log_pdf = log_unnorm - log_Z
         p = np.exp(log_pdf)
+
+        return cast(
+            Union[float, npt.NDArray[np.float64]],
+            p if x_arr.shape != () else p.item(),
+        )
+
+
+class WrappedGaussian:
+    """
+    Wrapped Gaussian distribution
+
+        pdf(x) = sum_k N(x - mu + 2 pi k; 0, sigma)
+
+    :var Args:
+        * mu: circular mean
+        * sigma: std
+        * n_windings: number of wrapping terms (range from -n_windings to +n_windings)
+    """
+
+    def __init__(self, mu: float = 0.0, sigma: float = 1.0, n_windings: int = 5):
+
+        self.mu = mu
+        self.sigma = sigma
+        self.n_windings = n_windings
+
+    def pdf(
+        self,
+        x: Union[float, npt.NDArray[np.float64]],
+    ) -> Union[float, npt.NDArray[np.float64]]:
+        """
+        PDF
+
+        :param x: phase difference
+        :type x: Union[float, npt.NDArray[np.float64]]
+        :return: PDF
+        :rtype: Union[float, npt.NDArray[np.float64]]
+        """
+
+        x_arr = np.atleast_1d(np.asarray(x, dtype=float))
+
+        ks = np.arange(-self.n_windings, self.n_windings + 1)
+
+        # Shape (n_windings_total, len(x)): one Gaussian per winding
+        shifted = x_arr[None, :] - self.mu + 2.0 * np.pi * ks[:, None]
+
+        # logsumexp over windings
+        log_terms = (
+            -0.5 * (shifted / self.sigma) ** 2
+            - np.log(self.sigma)
+            - 0.5 * np.log(2.0 * np.pi)
+        )
+
+        p = np.exp(logsumexp(log_terms, axis=0))
 
         return cast(
             Union[float, npt.NDArray[np.float64]],

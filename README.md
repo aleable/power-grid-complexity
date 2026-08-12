@@ -79,7 +79,7 @@ Doing so allows running the notebooks in [`notebooks/real_data`](./notebooks/rea
 
 <h2>Gaussian core model</h2>
 
-We added the `GaussianCoreModel` class in [`distributions.py`](./domain/distributions.py), which is used to perform MLE on frequency data from the UK power grid, obtained from [NESO](https://www.neso.energy/data-portal/system-frequency-data):
+We added the `GaussianCoreModel` class in [`distributions.py`](./domain/distributions.py), which is used to perform MLE on frequency data from the GB power grid, obtained from [NESO](https://www.neso.energy/data-portal/system-frequency-data):
 
 <b> Stochastic Modeling of Power-Grid Frequency Fluctuations in Low-Inertia Systems via a Gaussian-Core Potential and Superstatistics </b><br/>
 Wanru Hao, Alessandro Lonardi, and Christian Beck<br/>

@@ -11,7 +11,11 @@ from src.mle import mle_fit
 def mle_fit_multiple_inits(
     data: npt.NDArray[np.float64],
     distribution: Literal[
-        "sinh", "tilted_washboard", "gaussian_tail", "qgaussian_tail"
+        "sinh",
+        "tilted_washboard",
+        "gaussian_tail",
+        "qgaussian_tail",
+        "wrapped_gaussian",
     ],
     init_list: list[Dict[str, float]],
     constraints: Dict[str, Tuple[float, float]],
@@ -26,7 +30,7 @@ def mle_fit_multiple_inits(
     :param data: data to fit
     :type data: npt.NDArray[np.float64]
     :param distribution: distribution type
-    :type distribution: Literal["sinh", "tilted_washboard", "gaussian_tail", "qgaussian_tail"]
+    :type distribution: Literal["sinh", "tilted_washboard", "gaussian_tail", "qgaussian_tail", "wrapped_gaussian"]
     :param init_list: initializations
     :type init_list: list[Dict[str, float]]
     :param constraints: parameters validity bounds

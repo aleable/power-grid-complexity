@@ -8,6 +8,7 @@ from domain.distributions import (
     QGaussianTail,
     SinhDistribution,
     TiltedWashboardDistribution,
+    WrappedGaussian,
 )
 
 
@@ -15,7 +16,11 @@ def neg_log_likelihood(
     params_array: list[float],
     data: npt.NDArray[np.float64],
     distribution: Literal[
-        "sinh", "tilted_washboard", "gaussian_tail", "qgaussian_tail"
+        "sinh",
+        "tilted_washboard",
+        "gaussian_tail",
+        "qgaussian_tail",
+        "wrapped_gaussian",
     ],
     x_grid: Optional[npt.NDArray[np.float64]] = None,
 ) -> float:
@@ -46,6 +51,9 @@ def neg_log_likelihood(
     elif distribution == "qgaussian_tail":
         q, beta = params_array
         dist = QGaussianTail(q=q, beta=beta)
+    elif distribution == "wrapped_gaussian":
+        mu, sigma = params_array
+        dist = WrappedGaussian(mu=mu, sigma=sigma)
     else:
         raise ValueError(f"Distribution not implemented: {distribution}")
 
@@ -64,13 +72,23 @@ def clipped_log_likelihood_hessian(
         [
             list[float],
             npt.NDArray[np.float64],
-            Literal["sinh", "tilted_washboard", "gaussian_tail", "qgaussian_tail"],
+            Literal[
+                "sinh",
+                "tilted_washboard",
+                "gaussian_tail",
+                "qgaussian_tail",
+                "wrapped_gaussian",
+            ],
         ],
         float,
     ],
     data: npt.NDArray[np.float64],
     distribution: Literal[
-        "sinh", "tilted_washboard", "gaussian_tail", "qgaussian_tail"
+        "sinh",
+        "tilted_washboard",
+        "gaussian_tail",
+        "qgaussian_tail",
+        "wrapped_gaussian",
     ],
     param_names: List[str],
     constraints: Dict,
@@ -84,7 +102,7 @@ def clipped_log_likelihood_hessian(
     :param data: data to fit
     :type data: npt.NDArray[np.float64]
     :param distribution: distribution type
-    :type distribution: Literal["sinh", "tilted_washboard", "gaussian_tail", "qgaussian_tail"]
+    :type distribution: Literal["sinh", "tilted_washboard", "gaussian_tail", "qgaussian_tail", "wrapped_gaussian"]
     :param param_names: parameters string list: "a", "b", etc.
     :type param_names: List[str]
     :param constraints: parameters validity bounds

@@ -15,6 +15,16 @@
             10000
         ]
     },
+    "constraints_wrapped_gaussian": {
+        "mu": [
+            0,
+            6.28318530718
+        ],
+        "sigma": [
+            1e-6,
+            10000
+        ]
+    },
     "constraints_gaussian_tail": {
         "sigma": [
             1e-6,

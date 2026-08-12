@@ -12,7 +12,11 @@ from src.likelihood import clipped_log_likelihood_hessian, neg_log_likelihood
 def mle_fit(
     data: npt.NDArray[np.float64],
     distribution: Literal[
-        "sinh", "tilted_washboard", "gaussian_tail", "qgaussian_tail"
+        "sinh",
+        "tilted_washboard",
+        "gaussian_tail",
+        "qgaussian_tail",
+        "wrapped_gaussian",
     ],
     constraints: Dict[str, Tuple[float, float]],
     max_iter: Optional[int] = 100,
@@ -27,7 +31,7 @@ def mle_fit(
     :param data: data to fit
     :type data: npt.NDArray[np.float64]
     :param distribution: distribution type
-    :type distribution: Literal["sinh", "tilted_washboard", "gaussian_tail", "qgaussian_tail"]
+    :type distribution: Literal["sinh", "tilted_washboard", "gaussian_tail", "qgaussian_tail", "wrapped_gaussian"]
     :param constraints: parameters validity bounds
     :type constraints: Dict[str, Tuple[float, float]]
     :param max_iter:
@@ -146,6 +150,8 @@ def mle_fit(
             initial_params = {"sigma": 1.0}
         elif distribution == "qgaussian_tail":
             initial_params = {"q": 1.0, "beta": 20}
+        elif distribution == "qgaussian_tail":
+            initial_params = {"mu": 1.2, "sigma": 0.1}
         else:
             raise ValueError(f"Distribution not implemented: {distribution}")
 
